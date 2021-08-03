@@ -1,0 +1,9 @@
+##Pull down the latest version of terraform from Hashi
+FROM hashicorp/terraform:light
+##Need this else you get cert trust error
+COPY "myWork.pem" "/usr/local/share/ca-certificates/"
+##Need this to apply the new cert (above) on this box
+## https://manpages.ubuntu.com/manpages/xenial/man8/update-ca-certificates.8.html#name
+RUN "/usr/sbin/update-ca-certificates"
+##Need this so that it runs terraform upon launch
+ENTRYPOINT ["/bin/terraform"]
